@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Consulta Pessoas</title>
+   
+          <h:outputStylesheet library="css" name="consulta-pessoas.css"/>
+          <h:outputStylesheet library="css" name="sistema.css"/>
+</h:head>
+<body>
+        <h1> Pessoas</h1>
+        
+        <h:form id="frm">
+        
+        <h:button value="Nova Consulta" outcome="CadastroPessoas"/>
+        <h:messages showDetail="false" showSummary="true" styleClass="form-messages" errorClass="error" infoClass="info"/>
+        
+        <h:dataTable var="consulta" value="#{consultaPessoasBean.consultas}"
+            width="100%" styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
+            columnClasses="nome, tipo, e-mail, data-de-nascimento, ramo-de-atividade, acoes">
+            
+             <h:column>
+                <h:graphicImage value="/imagens/receita.png" rendered="#{consulta.tipo eq 'FISICA'}"/>
+                <h:graphicImage value="/imagens/receita.png" rendered="#{consulta.tipo eq 'JURIDICA'}"/>
+             </h:column>
+             
+        <h:column>
+          <f:facet name="header">
+             Nome
+          </f:facet>
+        <h:outputText value="#{consulta.nome}"/> 
+        </h:column>
+        
+        <h:column>
+          <f:facet name="header">
+             Tipo
+          </f:facet>
+        <h:outputText value="#{consulta.tipo}"/>
+        </h:column>
+        
+        <h:column>
+          <f:facet name="header">
+             E-mail
+          </f:facet>
+           <h:outputText value="#{consulta.email}"/>
+        </h:column>
+        
+        <h:column>
+          <f:facet name="header">
+            Data de Nascimento
+           </f:facet>
+        <h:outputText value="#{consulta.dataNascimento}">
+        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+        </h:outputText>
+        </h:column>
+        
+        <h:column>
+          <f:facet name="header">
+             Ramo de Atividade
+          </f:facet>
+        <h:outputText value="#{consulta.ramoAtividade.descricao}"/>
+        </h:column>
+        
+        <h:column>
+          <h:link outcome="CadastroPessoas">
+               <h:graphicImage value="/imagens/editar.png"/>
+               <f:param name="codigo" value="#{consulta.codigo}"/>
+          </h:link>
+               
+               <h:commandLink action="#{consultaPessoasBean.excluir}">
+               <h:graphicImage value="/imagens/excluir.png"/>
+               <f:setPropertyActionListener value="#{consulta}" 
+                   target="#{consultaPessoasBean.lancamentoSelecionado}"/>
+               
+               </h:commandLink>
+          </h:column>
+      </h:dataTable>
+     </h:form>
+</body>
+</html>

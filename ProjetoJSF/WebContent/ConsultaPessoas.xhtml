@@ -1,0 +1,90 @@
+<ui:composition  template="/template/LayoutPadrao.xhtml"
+                  xmlns="http://www.w3.org/1999/xhtml"
+                  xmlns:h="http://java.sun.com/jsf/html"
+                  xmlns:ui="http://java.sun.com/jsf/facelets"
+                  xmlns:f="http://java.sun.com/jsf/core">
+      
+      <ui:define name="titulo">Consultas</ui:define>
+      
+      <ui:define name="conteudo">
+      
+      
+      <h:outputStylesheet  library="css"   name="consulta-pessoas.css"/>
+      <h:outputStylesheet  library="css"   name="sistema.css"/>
+      
+        <h1>Cadastro de Clientes</h1>
+       
+       <h:form id="frm">
+       
+       <h:button value="Novo Cadastro" outcome="CadastroPessoas"
+              rendered="#{request.isUserInRole('cadastro')}"/>
+            
+            <h:messages showDetail="false" showSummary="true" styleClass="form-messages" errorClass="error" infoClass="info"/>
+       
+              <h:dataTable var="consulta" value="#{consultaPessoasBeans.consultas}"
+               width="100%" styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
+               columnClasses="nome, tipo, email, nascimento, ramo-atividade, acoes">
+               
+            <h:column>
+                <h:graphicImage value="/imagens/despesa.png" rendered="#{lancamento.tipo eq 'FISICA'}"/>
+                <h:graphicImage value="/imagens/receita.png" rendered="#{lancamento.tipo eq 'JURIDICA'}"/>
+            </h:column>
+              
+               <h:column>
+                  <f:facet name="header">
+                      Nome
+                  </f:facet>
+                  <h:outputText size="70" value="#{consulta.nome}" />
+               </h:column>
+               
+                 <h:column>
+                  <f:facet name="header">
+                      Tipo
+                  </f:facet>
+                  <h:outputText value="#{consulta.tipo}" />
+               </h:column>
+               
+               
+               <h:column>
+                 <f:facet name="header">
+                    E-mail
+                 </f:facet>
+                 <h:outputText size="60" value="#{consulta.email}"/>
+              </h:column>
+              
+              <h:column>
+                <f:facet name="header">
+                  Data de Nascimento
+                </f:facet>
+                <h:outputText value="#{consulta.dataNascimento}">
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+              </h:column>
+              
+           
+              
+             <h:column>
+                 <f:facet name="header">
+                    Ramo de Atividade
+                 </f:facet>
+                 <h:outputText value="#{consulta.ramoAtividade.descricao}"/>
+             </h:column>
+             
+              <h:column   rendered="#{request.isUserInRole('cadastro')}">
+                    <h:link outcome="CadastroPessoas">
+                         <h:graphicImage value="imagens/editar.png"/>
+                         <f:param name="codigo" value="#{consulta.codigo}"/>
+                    </h:link>
+                    
+                  <h:commandLink action="#{consultaPessoasBeans.excluir}">
+                <h:graphicImage value="imagens/excluir.png"/>
+                  <f:setPropertyActionListener value="#{consulta}" target="#{consultaPessoasBeans.lancamentoSelecioando}"/>
+                     <f:ajax render="@form"/>
+                  </h:commandLink>
+             </h:column>
+             
+           </h:dataTable>
+      </h:form>
+      
+      </ui:define>
+</ui:composition>

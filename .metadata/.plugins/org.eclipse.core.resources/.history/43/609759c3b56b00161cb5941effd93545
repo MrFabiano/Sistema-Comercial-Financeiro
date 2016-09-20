@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+      <f:metadata >
+         <f:viewParam name="codigo" value="#{cadastroPessoaBean.consulta}"/>
+      </f:metadata>
+      
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>#{cadastroPessoaBean.editando ? 'Editando Consulta' : 'Nova Consulta'}</title>
+      
+      <h:outputStylesheet library="css" name="sistema.css"/>
+      
+      
+</h:head>
+<h:body>
+
+       <h:form id="frm">
+       
+       <h1>#{cadastroPessoaBean.editando ? 'Editando Consulta' : 'Nova Consulta'}</h1>
+       
+           <h:button value="Nova" outcome="CadastroPessoas"/>
+           <h:button value="Consulta" outcome="ConsultaPessoas"/>
+           
+           <h:messages showDetail="false" showSummary="true" styleClass="form-messages" errorClass="error" infoClass="info"/>
+           
+           <h:panelGrid columns="2" styleClass="form-grid" columnClasses="label,campo">
+           
+               <h:outputLabel value="Nome"/>
+               <h:inputText size="50" value="#{cadastroPessoaBean.consulta.nome}" required="true" label="Nome"/>
+               
+               <h:outputLabel value="Tipo"/>
+               <h:selectOneRadio  value="#{cadastroPessoaBean.consulta.tipo}">
+                  <f:selectItems value="#{cadastroPessoaBean.tiposConsultas}" var="tipoConsulta" itemLabel="#{tipoConsulta.nome}"
+                   itemValue="#{tipoConsulta}"/>
+               </h:selectOneRadio>
+               
+               <h:outputLabel value="E-mail"/>
+               <h:inputText size="30" value="#{cadastroPessoaBean.consulta.email}" required="true" label="E-mail"/>
+               
+               <h:outputLabel value="Data de Nascimento"/>
+               <h:inputText size="20" value="#{cadastroPessoaBean.consulta.dataNascimento}" required="true" label="Data de Nascimento">
+               <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+               </h:inputText>
+              
+               <h:outputLabel value="Ramo de Atividade"/>
+               <h:selectOneMenu value="#{cadastroPessoaBean.consulta.ramoAtividade}">
+                  <f:selectItem  itemLabel="Selecione" noSelectionOption="true"/> 
+                  <f:selectItems value="#{cadastroPessoaBean.ramosAtividades}" var="ramoAtividade" itemValue="#{ramoAtividade}"
+                     itemLabel="#{ramoAtividade.descricao}"/>    
+               </h:selectOneMenu>
+               
+               <h:outputLabel/>
+               <h:commandButton value="Salvar" action="#{cadastroPessoaBean.salvar}"/>
+           
+           </h:panelGrid> 
+       </h:form>
+</h:body>
+</html>

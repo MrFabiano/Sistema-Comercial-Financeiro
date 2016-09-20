@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+.nome{
+	width: 20px;
+	text-align: center;
+}
+
+.tipo{
+	
+	text-align: center;
+}
+
+.e-mail{
+	text-align: center;
+}
+
+.data-de-nascimento{
+    
+	text-align: center;
+}
+
+.ramo-de-atividade{
+	width: 100px;
+	text-align: center;
+}
+
+.receita{
+	coolor: #0000ff;
+}
+
+ .despesa{
+	color: #c23030;
+}
+
+.acoes{
+
+	text-align: center;
+}

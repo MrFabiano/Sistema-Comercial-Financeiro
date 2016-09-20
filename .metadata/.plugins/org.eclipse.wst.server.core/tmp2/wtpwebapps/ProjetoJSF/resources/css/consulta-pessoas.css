@@ -1,0 +1,39 @@
+nome{
+	width:200px;
+	
+	
+}
+
+tipo{
+	width:100px;
+	
+}
+
+email{
+	width:100px;
+	
+}
+
+nascimento{
+	width:40px;
+	
+}
+
+
+ramo-atividade{
+	width: 40px;
+	
+}
+
+acoes { 
+	width: 40px;
+	
+}
+
+.grid .receita {
+	color: #0000ff;
+}
+
+.grid .despesa {
+	color: #c23030;
+}
